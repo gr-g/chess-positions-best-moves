@@ -3,10 +3,12 @@
 The code in this repository can be used to generate a list of the most common chess positions with the best moves that can be played in those positions (according to engine evaluations).
 The results can also be packaged as an [Anki](https://apps.ankiweb.net/) deck for easy memorization.
 
-The cards in the Anki deck will look like this:
+The cards in the Anki deck will look like this.
 
+Front side:
 ![Example card - question side](/examples/example-front.png?raw=true "Front side")
 
+Back side:
 ![Example card - question side](/examples/example-back.png?raw=true "Back side")
 
 ## Usage
