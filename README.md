@@ -8,6 +8,7 @@ A file `positions-db` can be created from the PGN files using `create-position-d
 By default, `create-position-db.py` considers positions up to move 15 and includes in the output all positions that occur in at least 0.01% of the games in the dataset. This can be changed in the code.
 
 ```shell
+$ pip install chess
 # Warning: the processing is not very efficient, this will take a looooooong time.
 $ zstdcat lichess_db_standard_rated_2024-09.pgn.zst | python create-position-db.py > positions-db
 ```
@@ -16,11 +17,11 @@ Next, we need the engine evaluations to identify the best moves in each position
 A file `evaluations-db` can be created using `create-evaluations-db.py`
 
 ```shell
-# Note: the size of the output will be around 5GB.
+# Note: the size of the output will be around 6GB (as of November 2024).
 $ zstdcat lichess_db_eval.jsonl.zst | python create-evaluations-db.py > evaluations-db
 ```
 
-Finally, we generate a file `names-db` with the names of the openings. These are taken from the lichess [`chess-openings`](https://github.com/lichess-org/chess-openings/) repository.
+Then, we generate a file `names-db` with the names of the openings. These are taken from the lichess [`chess-openings`](https://github.com/lichess-org/chess-openings/) repository.
 
 ```shell
 $ python create-position-db.py > positions-db
@@ -30,6 +31,8 @@ Assuming the files `positions-db`, `evaluations-db`, and `names-db` are in the w
 
 ```shell
 $ python chess-positions-best-moves.py
+...
+...
 ...
 Output written to chess-positions-best-moves.json.
 ```
@@ -139,12 +142,17 @@ The content of `chess-positions-best-moves.json` will look like this:
 ...
 ```
 
-By default, the best moves listed for each position will be the moves with an evaluation within 25 centipawns from the best move.
+By default, the best moves listed for each position will be the moves with an evaluation within 25 centipawns from the evaluation of the best move.
 
-The information in `chess-positions-best-moves.json` can be converted in a tab-separated file and a set of SVG images suitable to be used to create an Anki deck:
+Finally, we can generate an Anki deck based on the information in `chess-positions-best-moves.json`, using the [`genanki`](https://github.com/kerrickstaley/genanki) package. The images for the positions are generated using the [SVG renderer](https://python-chess.readthedocs.io/en/latest/svg.html) in the python-chess package.
 
 ```shell
+$ pip install genanki
 $ python export-anki-deck.py
-Created 'deck.tsv' (to be imported in Anki).
-Images stored under 'images/' (to be moved to Anki multimedia folder).
+Generating notes...
+Generating images...
+Creating deck...
+Created 'Chess - Common Positions and Best Moves.apkg'.
 ```
+
+By default the deck will include 1000 cards, producing a package of around 65MB.
