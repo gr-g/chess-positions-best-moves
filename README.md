@@ -24,7 +24,7 @@ $ zstdcat lichess_db_eval.jsonl.zst | python create-evaluations-db.py > evaluati
 Then, we generate a file `names-db` with the names of the openings. These are taken from the lichess [`chess-openings`](https://github.com/lichess-org/chess-openings/) repository.
 
 ```shell
-$ python create-position-db.py > positions-db
+$ python create-names-db.py > names-db
 ```
 
 Assuming the files `positions-db`, `evaluations-db`, and `names-db` are in the working folder, the main program can run:
@@ -139,6 +139,13 @@ The content of `chess-positions-best-moves.json` will look like this:
                 "evaluation": 36,
                 "name": "Nimzowitsch Defense"
             },
+            {
+                "move": "a6",
+                "evaluation": 46,
+                "name": "St. George Defense"
+            }
+        ]
+    },
 ...
 ```
 
