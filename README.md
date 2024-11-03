@@ -5,13 +5,15 @@ The results can also be packaged as an [Anki](https://apps.ankiweb.net/) deck fo
 
 The cards in the Anki deck will look like this.
 
-<p align="center">Front side:</p>
+<div align="center">
+Front side:
 
 ![Example card - question side](/examples/example-front.png?raw=true "Front side")
 
-<p align="center">Back side:</p>
+Back side:
 
 ![Example card - question side](/examples/example-back.png?raw=true "Back side")
+</div>
 
 ## Usage
 First we need a big dataset of PGN files to determine the most common chess positions. A month of games played on lichess (dowloaded from [here](https://database.lichess.org/#standard_games)) can be a good choice.
