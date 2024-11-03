@@ -9,9 +9,6 @@ MAX_MOVES = 15;
 # Keep positions that occur in at least 0.01% of games.
 THRESHOLD_N = 10000;
 
-def trimmed_fen(fen: str) -> str:
-    return ' '.join(fen.split(' ')[0:4])
-
 positions = Counter()
 
 n = 0
@@ -23,11 +20,11 @@ while True:
 
     n += 1
     board = game.board()
-    fen = trimmed_fen(board.fen())
+    fen = board.epd()
     positions[fen] += 1
     for move in game.mainline_moves():
         board.push(move)
-        fen = trimmed_fen(board.fen())
+        fen = board.epd()
         if add_new_positions or fen in positions:
             positions[fen] += 1
         if board.fullmove_number > MAX_MOVES:

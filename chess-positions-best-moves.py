@@ -6,9 +6,6 @@ from collections import deque
 # When creating the list of best moves, keep only the moves that are within 25 centipawns of the best move.
 BEST_MOVES_CUTOFF: int = 25
 
-def trimmed_fen(fen: str) -> str:
-    return ' '.join(fen.split(' ')[0:4])
-
 def parent_names(initial_fen: str, positions: dict[str, int], names: dict[str, str]) -> dict[str, [str]]:
     # Assign names to positions based on the names of the parents, using a bfs tree search.
     queue = deque([{ 'fen': initial_fen, 'named_parents': [] }])
@@ -29,7 +26,7 @@ def parent_names(initial_fen: str, positions: dict[str, int], names: dict[str, s
         new_nodes = []
         for move in board.legal_moves:
             board.push(move)
-            new_fen = trimmed_fen(board.fen())
+            new_fen = board.epd()
             if new_fen not in visited_nodes and new_fen in positions:
                 if fen in names:
                     new_nodes.append({ 'fen': new_fen, 'named_parents': [names[fen]] })
@@ -52,7 +49,7 @@ def main():
     print(f"Loaded {len(positions)} positions.")
 
     print("Loading opening names...")
-    initial_fen = trimmed_fen(chess.STARTING_FEN)
+    initial_fen = chess.Board().epd()
     names = { initial_fen: 'Starting position' }
     with open('names-db') as names_data:
         for line in names_data:
@@ -73,7 +70,7 @@ def main():
             all_positions_eval[fen] = None
         for move in board.legal_moves:
             board.push(move)
-            new_fen = trimmed_fen(board.fen())
+            new_fen = board.epd()
             if new_fen not in all_positions_eval:
                 all_positions_eval[new_fen] = None
             board.pop()
@@ -101,7 +98,7 @@ def main():
         for move in board.legal_moves:
             san = board.san(move)
             board.push(move)
-            new_fen = trimmed_fen(board.fen())
+            new_fen = board.epd()
             if all_positions_eval[new_fen] is not None:
                 move_list.append((san, all_positions_eval[new_fen], new_fen))
             elif board.outcome() is not None:
