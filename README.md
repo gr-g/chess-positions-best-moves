@@ -5,10 +5,12 @@ The results can also be packaged as an [Anki](https://apps.ankiweb.net/) deck fo
 
 The cards in the Anki deck will look like this.
 
-Front side:
+<p align="center">Front side:</p>
+
 ![Example card - question side](/examples/example-front.png?raw=true "Front side")
 
-Back side:
+<p align="center">Back side:</p>
+
 ![Example card - question side](/examples/example-back.png?raw=true "Back side")
 
 ## Usage
